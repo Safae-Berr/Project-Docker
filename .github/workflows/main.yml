@@ -23,7 +23,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build and test with Maven
-        run: mvn clean verify        # Compile et lance les tests
+        run: mvn clean verify --file ./backend/pom.xml      # Compile et lance les tests
         working-directory: backend   # Le pom.xml est dans le dossier backend
 
       # Run SonarCloud analysis (requires secret SONAR_TOKEN)
