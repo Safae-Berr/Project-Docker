@@ -1,4 +1,4 @@
-# Workflow CI : build et tests automatiques du backend et déploiement Docker.hfhcggc
+# Workflow CI : build et tests automatiques du backend et déploiement Docker
 
 name: CI devops 2025
 
@@ -26,11 +26,13 @@ jobs:
 
       - name: Run SonarCloud analysis
         working-directory: ./backend
-        run: mvn -B verify sonar:sonar \
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION_KEY }} \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn -B verify sonar:sonar \
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION_KEY }} \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        shell: bash
 
   build-and-push-docker-image:
     needs: test-backend
