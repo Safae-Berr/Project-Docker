@@ -9,6 +9,9 @@ on:
     branches: [ master, develop ]
 
 jobs:
+  # -------------------------------------------------
+  # Étape 1 : Test du backend Java avec Maven
+  # -------------------------------------------------
   test-backend:
     runs-on: ubuntu-24.04
     steps:
@@ -34,8 +37,11 @@ jobs:
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         shell: bash
 
+  # -------------------------------------------------
+  # Étape 2 : Build et push des images Docker
+  # -------------------------------------------------
   build-and-push-docker-image:
-    needs: test-backend
+    needs: test-backend # S’exécute uniquement si les tests passent
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
