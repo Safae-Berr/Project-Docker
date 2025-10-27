@@ -25,13 +25,12 @@ jobs:
         working-directory: backend
 
       - name: Run SonarCloud analysis
+        working-directory: ./backend
         run: mvn -B verify sonar:sonar \
-          -Dsonar.projectKey=Project-Docker \
-          -Dsonar.organization=ansible-course \
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION_KEY }} \
           -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          --file ./backend/pom.xml
-        shell: bash
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   build-and-push-docker-image:
     needs: test-backend
