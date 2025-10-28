@@ -1,0 +1,13 @@
+# tasks file for roles/proxy
+- name: Run HTTPD proxy container
+  community.docker.docker_container:
+    name: httpd-proxy
+    image: safaeberr/project-docker-httpd:latest
+    state: started
+    restart_policy: always
+    networks:
+      - name: app-network
+    ports:
+      - "8081:80"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3

@@ -1,0 +1,10 @@
+- hosts: all
+  gather_facts: true
+  become: true
+
+  roles:
+    - docker        # Installe Docker s’il n’est pas présent
+    - network       # Crée le réseau Docker
+    - database      # Lance le conteneur PostgreSQL
+    - backend           # Lance l’application backend
+    - proxy         # Lance le reverse proxy HTTPD
