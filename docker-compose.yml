@@ -36,8 +36,19 @@ services:
     networks:
       - app-network
     ports:
-      - "8081:80"
+      - "80:80"
     restart: unless-stopped
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    depends_on:
+      - initdb
+    ports:
+      - "8090:8080"
+    networks:
+      - app-network
+    restart: always
 
 networks:
   app-network:
